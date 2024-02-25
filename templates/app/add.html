@@ -1,0 +1,41 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}
+Add Your Record Here
+{% endblock title %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<script>
+    alert("{{ message }}");
+</script>
+    {% endfor %}
+    {% endif %}
+<div class="flex items-center justify-center py-12 text-xs">
+    <form action="" method="post" class="shadow-xl lg:w-[30rem]">
+        {% csrf_token %}
+        <p class="text-center rounded-t-lg text-slate-200 p-2 lg:p-3 bg-gray-800">Enter data Here!</p>
+        <div class="p-5">
+            <label>Select Month</label><br>
+            {{ form.month }} <br>
+            <label>Select Week</label><br>
+            {{ form.week }} <br>
+            <label>Area Name</label><br>
+            {{ form.area_name }} <br>
+            <label>Parish Name</label><br>
+            {{ form.parish_name }} <br>
+            <label>Parish Address</label><br>
+            {{ form.address }} <br>
+            <label>Area Co-ordinator</label><br>
+            {{ form.area_coordinator }} <br>
+            <label>Parish Number With Report</label><br>
+            {{ form.parish_number_with_report }} <br>
+            <label>Parish Number Without Report</label><br>
+            {{ form.parish_number_with_no_report }} <br>
+            <label>Total number of Parish</label><br>
+            {{ form.total_number_of_parish }} <br>
+            <button type="submit" class="p-2 text-white bg-blue-500 rounded-lg mt-2">Post Record</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

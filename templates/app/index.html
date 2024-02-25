@@ -1,0 +1,76 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}
+Home
+{% endblock title %}
+{% block content %}
+<div class="flex items-center justify-center py-12">
+  <div>
+    <div class="flex gap-1">
+      <p class="">
+        All Records
+      </p>
+    </div>
+    {% if ar %}
+    <div class="py-6 text-xs lg:text-md shadow lg:w-[90rem] lg:shadow-xl">
+      <div class="p-3 bg-black text-white">
+        <div class="grid-cols-4 grid gap-5">
+          <p>Month</p>
+          <p>Week</p>
+          <p>Area Name</p>
+          <p>Parish Name</p>
+        </div>
+      </div>
+      <div class="grid-cols-4 grid gap-5 p-2">
+        {% for x in ar %}
+        {% if x.created_by == profile %}
+        <p class="capitalize">{{ x.month }}</p>
+        <p>{{ x.week }}</p>
+        <p>{{ x.area_name }}</p>
+        <p>{{ x.parish_name }}</p>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="py-2 text-xs lg:text-md shadow lg:w-[90rem] lg:shadow-xl">
+      <div class="p-3 bg-black text-white">
+        <div class="grid-cols-5 grid gap-5">
+          <p>Area Coordinator</p>
+          <p>Parish number with report</p>
+          <p>Parish number with no report</p>
+          <p>Total number of parish</p>
+          <p>Address</p>
+        </div>
+      </div>
+      <div class="grid-cols-5 grid gap-5 p-3 w-full">
+        {% for x in ar %}        
+        {% if x.created_by == profile %}
+        <p>{{ x.address }}</p>
+        <p>{{ x.area_coordinator }}</p>
+        <p>{{ x.parish_number_with_report }}</p>
+        <p>{{ x.parish_number_with_no_report }}</p>
+        <p>{{ x.total_number_of_parish }}</p>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="py-2 text-xs lg:text-md shadow lg:w-[90rem] lg:shadow-xl">
+      <div class="p-3 bg-black text-white">
+        <div class="grid-cols-1 grid gap-5">
+          <p>Posted By</p>
+        </div>
+      </div>
+      <div class="grid-cols-1 grid gap-1 p-3 w-full">
+        {% for x in ar %}
+        {% if x.created_by == profile %}
+        <p>@{{ x.created_by }}</p>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <div class="py-12 mt-40"></div>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}

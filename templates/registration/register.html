@@ -1,0 +1,52 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}
+  Sign In Into Your Account
+{% endblock title %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<script>
+  function goBack(){
+    window.history.back();
+  }
+</script>
+<div class="flex items-center justify-center py-12 lg:mt-20">
+  <div>
+    <div>
+      <p class="p-1 font-black lg:text-8xl">404</p>
+    </div>
+  </div>
+</div>
+<p class="mt-5 text-center lg:text-xl">Page not found on this server!</p>
+<p class="mt-2 text-center text-blue-700 cursor-pointer lg:text-md underline" onclick="goBack()">Back</p>
+{% else %}
+<div class="py-12 flex items-center justify-center">
+    <form action="" method="post" class="lg:p-10 p-5 text-sm shadow-2xl border rounded-lg lg:w-[25rem]">
+        {% csrf_token %}
+        <h2 class="text-center py-4">Signup Here!</h2>
+        
+        {% if form.errors or form.non_field_errors %}
+            <div class="w-full p-2 rounded-xl mb-2 bg-red-100 text-red-500">
+                {% for field in form %}
+                    {{ field.errors }}
+                {% endfor %}
+                {{ form.non_field_errors }}
+              </div>
+        {% endif %}
+            
+        <label>Username</label><br>
+        {{ form.username }} <br>
+        <label>Email Address</label><br>
+        {{ form.email }} <br>
+        <label>Password</label><br>
+        {{ form.password1 }} <br>
+        <label>Confirm Password</label><br>
+        {{ form.password2 }} <br>
+        <small class="underline text-red-700">
+            <a href="{% url 'login' %}">Already have an account</a>
+        </small><br>
+        <button type="submit" class="p-2 text-white bg-blue-500 rounded-lg mt-2">Register</button>
+    </form>
+  </div>
+  {% endif %}
+{% endblock content %}

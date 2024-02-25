@@ -1,0 +1,23 @@
+{% extends 'partials/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+Edit/Update Your Profile Here
+{% endblock title %}
+{% block content %}
+<div class="flex items-center justify-center py-12">
+    <form action="" method="post" class="shadow-xl lg:w-[30rem]" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p class="text-center rounded-t-lg text-slate-200 lg:p-3 bg-gray-800">Enter data Here!</p>
+        <div class="lg:p-5">
+            <label>Upload a Profile Image</label><br>
+            {% render_field form.profile_pic class="border rounded-lg" %} <br>
+            <label>Parish Name</label><br>
+            {% render_field form.parish_name class="w-full lg:p-2 border rounded-lg" %} <br>
+            <label>Parish Location</label><br>
+            {% render_field form.parish_location class="w-full lg:p-2 border rounded-lg" %} <br>
+            <button type="submit" class="p-2 text-white bg-blue-500 rounded-lg mt-2">Finish Edit</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

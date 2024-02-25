@@ -1,0 +1,25 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}
+Delete Your Record Here
+{% endblock title %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<script>
+    alert("{{ message }}");
+</script>
+    {% endfor %}
+    {% endif %}
+    <br><br>
+<div class="flex items-center justify-center py-12 lg:mt-12 mt-6">
+    <form action="" method="post" class="shadow-xl lg:w-[30rem]">
+        {% csrf_token %}
+        <p class="text-center rounded-t-lg text-slate-200 text-sm lg:p-3 p-2 bg-gray-800">Are Your Sure You Want to Delete This Record?</p>
+        <div class="p-5">
+            <button type="submit" class="lg:p-2 p-1 text-sm text-white bg-red-600 rounded-lg mt-2">Delete Record</button>
+        </div>
+    </form>
+</div>
+<br><br><br>
+{% endblock content %}

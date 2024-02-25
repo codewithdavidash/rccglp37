@@ -1,0 +1,65 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}
+    Search
+{% endblock title %}
+    
+{% block content %}
+    <div class="py-12 items-center justify-center flex">
+        <form action="{% url 'search' %}" method="get" class="flex items-center">
+            {% csrf_token %}
+            <input type="search" name="query" placeholder="Search..." class="lg:w-[25rem] rounded-xl border border-black p-2">
+            <button type="submit" title="search">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                  </svg>                  
+            </button>
+        </form>
+        <div class="fixed bottom-[200px] right-0">
+            <div class="bg-blue-600 w-min p-2 rounded-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 text-white">
+                    <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="relative top-0 bg-white shadow-2xl p-2">
+                <p>You Search </p>
+            </div>
+        </div>
+    </div>
+    <div class="items-center mt-5 justify-center flex">
+        <div>
+            <div class="px-5">
+                <p>Search Results For "{{ query }}"</p>
+                <p>
+                    {% if ar %}
+                    {{ ar.count }} results found
+                    {% endif %}     
+                </p>
+            </div>
+            <br><br>
+        <div class="h-[20rem] p-2" {% if ar %}style="overflow-y: scroll;"{% endif %}>
+            
+            {% if ar %}
+            {% for items in ar %}
+            <div class="mb-2">
+                <a href="{% url 'detail' items.pk %}">
+                    <div class="lg:p-5 p-2 bg-gray-200 rounded-xl flex items-center w-[18rem] lg:w-[40rem] justify-between">
+                        <div class="gap-1 font-bold flex items-center">
+                        <img src="{{ items.created_by.profile_pic.url }}" class="rounded-full h-10 w-10">
+                        <p>@{{ items.created_by }}</p>
+                    </div>
+                    <p class="text-xs text-blue-500">Check Record</p>
+                </div>
+                </a>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="py-5">
+            <p class="font-bold lg:text-2xl text-gray-500">No results found in the given query!</p>
+            </div>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+{% endblock content %}
+    
